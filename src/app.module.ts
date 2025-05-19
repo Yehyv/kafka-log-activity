@@ -7,7 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [    
-    MongooseModule.forRoot('mongodb+srv://admin:admin@cluster0.zcagdda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'), // رابط قاعدة البيانات عندك
+    MongooseModule.forRoot('mongodb+srv://admin:admin@cluster0.zcagdda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'), 
     ClientsModule.register([
       {
         name: 'KAFKA_SERVICE',
@@ -15,7 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
         options: {
           client: {
             clientId: 'log-producer',
-            brokers: ['localhost:9092'],  // مهم جداً يكون الـ broker هنا مضبوط
+            brokers: ['localhost:9092'],  
           },
           consumer: {
             groupId: 'log-consumer-group',
