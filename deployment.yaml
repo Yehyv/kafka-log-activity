@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nest-kafka-logs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nest-kafka-logs
+  template:
+    metadata:
+      labels:
+        app: nest-kafka-logs
+    spec:
+      containers:
+      - name: nest-kafka-logs
+        image: <your-dockerhub-username>/nest-kafka-logs-app:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MONGO_URI
+          value: "mongodb+srv://..."
+        - name: KAFKA_BROKER
+          value: "your.kafka.broker:9092"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nest-kafka-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: nest-kafka-logs
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
